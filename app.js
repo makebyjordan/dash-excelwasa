@@ -161,10 +161,28 @@ function renderTable() {
     .map(
       (row) =>
         `<tr>${state.headers
-          .map((header) => `<td>${escapeHtml(row[header] ?? "")}</td>`)
+          .map((header) => `<td class="copy-cell" title="Copiar valor">${escapeHtml(row[header] ?? "")}</td>`)
           .join("")}</tr>`,
     )
     .join("");
+}
+
+function setupCellCopy() {
+  dom.tableBody.addEventListener("click", async (event) => {
+    const cell = event.target.closest("td.copy-cell");
+    if (!cell) return;
+
+    const value = cell.textContent.trim();
+    if (!value) return;
+
+    try {
+      await navigator.clipboard.writeText(value);
+      cell.classList.add("copied");
+      setTimeout(() => cell.classList.remove("copied"), 900);
+    } catch (error) {
+      console.error("No se pudo copiar el valor", error);
+    }
+  });
 }
 
 function syncStatusFilterOptions(rows) {
@@ -269,6 +287,7 @@ function init() {
   setupConfigModal();
   dom.searchInput.addEventListener("input", applyFilters);
   dom.statusFilter.addEventListener("change", applyFilters);
+  setupCellCopy();
   loadSheet();
 }
 

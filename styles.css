@@ -259,6 +259,21 @@ td {
   white-space: nowrap;
 }
 
+.copy-cell {
+  cursor: pointer;
+  position: relative;
+  transition: background 0.2s ease;
+}
+
+.copy-cell:hover {
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
+}
+
+.copy-cell.copied {
+  background: color-mix(in srgb, var(--primary) 18%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--primary) 35%, transparent);
+}
+
 th {
   font-size: 12px;
   letter-spacing: 0.03em;
