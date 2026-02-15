@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Leads ExcelWasa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="app-shell">
+      <header class="topbar glass">
+        <div>
+          <p class="eyebrow">Dashboard Comercial</p>
+          <h1>Leads Cualificados Percent</h1>
+        </div>
+
+        <div class="topbar-actions">
+          <button id="openConfigBtn" class="btn btn-ghost" type="button">Configurar fuente</button>
+          <button id="themeToggle" class="btn btn-primary" type="button" aria-label="Cambiar tema">
+            🌗 Tema
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <section class="stats-grid" id="statsGrid"></section>
+
+        <section class="panel glass chart-panel">
+          <div class="panel-head">
+            <h2>Distribución por origen</h2>
+            <span class="muted" id="lastUpdate">Sin datos</span>
+          </div>
+          <div id="originBars" class="bars"></div>
+        </section>
+
+        <section class="panel glass">
+          <div class="panel-head">
+            <h2>Leads</h2>
+            <div class="table-tools">
+              <input id="searchInput" class="input" type="search" placeholder="Buscar por nombre, email, portal..." />
+              <select id="statusFilter" class="input select">
+                <option value="">Todos los estados</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead id="tableHead"></thead>
+              <tbody id="tableBody"></tbody>
+            </table>
+          </div>
+          <p id="emptyState" class="muted empty-state">No hay datos para mostrar.</p>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="configModal">
+      <form method="dialog" class="config-card">
+        <div class="panel-head">
+          <h3>Configuración Google Sheets</h3>
+          <button class="btn btn-ghost" value="cancel">Cerrar</button>
+        </div>
+
+        <p class="muted">
+          El dashboard usa el endpoint público de Google Sheets (gviz). Asegúrate de compartir la hoja como
+          "Cualquiera con el enlace" (lector).
+        </p>
+
+        <label>
+          <span>Spreadsheet ID</span>
+          <input id="sheetIdInput" class="input" type="text" />
+        </label>
+
+        <label>
+          <span>GID (pestaña)</span>
+          <input id="gidInput" class="input" type="text" />
+        </label>
+
+        <label>
+          <span>Rango opcional (ej: A1:R)</span>
+          <input id="rangeInput" class="input" type="text" placeholder="A1:R" />
+        </label>
+
+        <div class="modal-actions">
+          <button id="resetDefaultsBtn" class="btn btn-ghost" type="button">Restablecer</button>
+          <button id="saveConfigBtn" class="btn btn-primary" type="button">Guardar y recargar</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
